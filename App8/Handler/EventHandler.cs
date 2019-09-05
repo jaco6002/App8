@@ -27,12 +27,12 @@ namespace App8.Handler
 
         public void DeleteEvent()
         {
-            EventCatalogSingleton.Instance.RemoveEvent();
+            EventCatalogSingleton.Instance.RemoveEvent(EventViewModel.SelectedEvent);
         }
 
-        public Event SetSelectedEvent(Event ev)
+        public void SetSelectedEvent(Event ev)
         {
-            return ev;
+            EventViewModel.SelectedEvent = ev;
         }
     }
 }

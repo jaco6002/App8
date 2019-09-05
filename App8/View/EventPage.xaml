@@ -39,7 +39,7 @@
 
     <Grid>
 
-        <ListView ItemTemplate="{StaticResource EventDataTemplate}" ItemsSource="{Binding Events}" SelectedItem="{Binding SelectedEvent}">
+        <ListView ItemTemplate="{StaticResource EventDataTemplate}" ItemsSource="{Binding Events}">
 
             <Custom:Interaction.Behaviors>
                 <Custom1:EventTriggerBehavior EventName="SelectionChanged">
