@@ -24,6 +24,9 @@ namespace App8.ViewModel
         private string _place;
         private DateTimeOffset _date;
         private TimeSpan _time;
+        private ICommand _deleteEventCommand;
+        private ICommand _selectedEventCommand;
+
 
         public EventCatalogSingleton EventCatalog { get; set; }
         public ObservableCollection<Event> Events { get; set; }
@@ -44,10 +47,10 @@ namespace App8.ViewModel
             EventHandler.CreateEvent();
         }
 
-        public void RemoveEventMethod()
-        {
-            EventHandler.DeleteEvent();
-        }
+        //public void RemoveEventMethod()
+        //{
+        //    EventHandler.DeleteEvent();
+        //}
 
         public int Id
         {
@@ -81,11 +84,27 @@ namespace App8.ViewModel
 
         public static Event SelectedEvent { get; set; }
 
+
+        public ICommand SelectedEventCommand {
+            get
+            {
+                return _selectedEventCommand ?? (_selectedEventCommand =
+                           new RelayArgCommand<Event>(ev => EventHandler.SetSelectedEvent(ev)));
+            }
+            set { _selectedEventCommand = value; }
+        }
+
         public Handler.EventHandler EventHandler { get; set; }
         public ICommand CreateEventCommand { get; set; }
-        //public ICommand DeleteEventCommand { get; set; }
-        //public ICommand SelectedEventCommand { get; set; }
 
-        
+        public ICommand DeleteEventCommand
+        {
+            get { return _deleteEventCommand ?? (_deleteEventCommand = new RelayCommand(EventHandler.DeleteEvent)); }
+            set { _deleteEventCommand = value; }
+        }
     }
+        
+
+
+    
 }

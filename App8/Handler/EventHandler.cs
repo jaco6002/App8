@@ -27,14 +27,12 @@ namespace App8.Handler
 
         public void DeleteEvent()
         {
-            DateTime date = DateTimeConverter.DateTimeOffsetAndTimeSetToDateTime(ViewModel.Date, ViewModel.Time);
-            Event NewEvent = new Event(ViewModel.Id, ViewModel.Name, ViewModel.Description, ViewModel.Place, date);
-            EventCatalogSingleton.Instance.RemoveEvent(NewEvent);
+            EventCatalogSingleton.Instance.RemoveEvent();
         }
 
-        public void SetSelectedEvent(Event ev)
+        public Event SetSelectedEvent(Event ev)
         {
-
+            return ev;
         }
     }
 }
