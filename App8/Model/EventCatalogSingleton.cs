@@ -20,7 +20,7 @@ namespace App8.Model
             _eventCollection=new ObservableCollection<Event>();
             _eventCollection.Add(Event1);
             _eventCollection.Add(Event2);
-            //LoadEventsAsync();
+            LoadEventsAsync();
         }
 
         public static EventCatalogSingleton Instance
@@ -44,13 +44,17 @@ namespace App8.Model
 
         public async void LoadEventsAsync()
         {
-           List<Event> newlist = await PersistencyService.LoadEventsFromJsonAsync();
-           EventCollection = new ObservableCollection<Event>(newlist);
+            List<Event> newlist = await PersistencyService.LoadEventsFromJsonAsync();
+            if (newlist!=null)
+            { EventCollection = new ObservableCollection<Event>(newlist);}
+            
+            
         }
 
-        public void RemoveEvent(Event R)
+        public void RemoveEvent(Event e)
         {
-            EventCollection.RemoveAt(R);
+            EventCollection.Remove(e);
+            PersistencyService.SaveEventsAsJsonAsync(EventCollection);
         }
     }
 }

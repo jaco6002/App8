@@ -14,7 +14,7 @@ namespace App8.Persistency
 {
     class PersistencyService
     {
-        private static string jsonFileName = "EventsAsJson1.dat";
+        private static string jsonFileName = "EventsAsJson1.json";
 
         public static async void SaveEventsAsJsonAsync(ObservableCollection<Event> Events)
         {

@@ -12,6 +12,7 @@ using App8.Annotations;
 using App8.Common;
 using App8.Handler;
 using App8.Model;
+using EventHandler = System.EventHandler;
 
 namespace App8.ViewModel
 {
@@ -23,6 +24,7 @@ namespace App8.ViewModel
         private string _place;
         private DateTimeOffset _date;
         private TimeSpan _time;
+
         public EventCatalogSingleton EventCatalog { get; set; }
         public ObservableCollection<Event> Events { get; set; }
         public EventViewModel()
@@ -40,6 +42,11 @@ namespace App8.ViewModel
         public void CreateEventMethod()
         {
             EventHandler.CreateEvent();
+        }
+
+        public void RemoveEventMethod()
+        {
+            EventHandler.DeleteEvent();
         }
 
         public int Id
@@ -73,11 +80,11 @@ namespace App8.ViewModel
         }
 
         public static Event SelectedEvent { get; set; }
-        
 
         public Handler.EventHandler EventHandler { get; set; }
         public ICommand CreateEventCommand { get; set; }
-
+        //public ICommand DeleteEventCommand { get; set; }
+        //public ICommand SelectedEventCommand { get; set; }
 
         
     }
