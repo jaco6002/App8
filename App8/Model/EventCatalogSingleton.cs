@@ -15,11 +15,11 @@ namespace App8.Model
 
         private EventCatalogSingleton()
         {
-            Event Event1=new Event(1,"festival","musik","roskilde",new DateTime());
-            Event Event2 = new Event(2, "tour", "museumstur", "roskilde", new DateTime());
+            //Event Event1=new Event(1,"festival","musik","roskilde",new DateTime());
+            //Event Event2 = new Event(2, "tour", "museumstur", "roskilde", new DateTime());
             _eventCollection=new ObservableCollection<Event>();
-            _eventCollection.Add(Event1);
-            _eventCollection.Add(Event2);
+            //_eventCollection.Add(Event1);
+            //_eventCollection.Add(Event2);
             LoadEventsAsync();
         }
 
@@ -45,15 +45,22 @@ namespace App8.Model
         public async void LoadEventsAsync()
         {
             List<Event> newlist = await PersistencyService.LoadEventsFromJsonAsync();
-            if (newlist!=null)
-            { EventCollection = new ObservableCollection<Event>(newlist);}
-            
-            
+            if (newlist != null)
+            {
+                ObservableCollection<Event> EventC = new ObservableCollection<Event>(newlist);
+                foreach (Event e in EventC)
+                {
+                    _eventCollection.Add(e);
+                }
+                
+            }
         }
-
         public void RemoveEvent(Event e)
         {
-            EventCollection.Remove(e);
+            if (EventCollection.Contains(e))
+            {
+                 EventCollection.Remove(e);
+            }
             PersistencyService.SaveEventsAsJsonAsync(EventCollection);
         }
     }

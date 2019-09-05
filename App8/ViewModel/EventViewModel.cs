@@ -26,20 +26,24 @@ namespace App8.ViewModel
         private TimeSpan _time;
         private ICommand _deleteEventCommand;
         private ICommand _selectedEventCommand;
-
+        private ObservableCollection<Event> _events;
 
         public EventCatalogSingleton EventCatalog { get; set; }
-        public ObservableCollection<Event> Events { get; set; }
+        public ObservableCollection<Event> Events
+        {
+            get { return _events;}
+            set { _events = value; }
+        }
         public EventViewModel()
         {
-            Events = EventCatalogSingleton.Instance.EventCollection;
+            _events = EventCatalogSingleton.Instance.EventCollection;
             EventCatalog = EventCatalogSingleton.Instance;
             DateTime dt = System.DateTime.Now;
             Date = new DateTimeOffset(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0,0, new TimeSpan());
             Time = new TimeSpan(dt.Hour, dt.Minute, dt.Second);
             EventHandler=new Handler.EventHandler(this);
             CreateEventCommand = new RelayCommand(CreateEventMethod);
-            EventCatalog.LoadEventsAsync();
+
         }
 
         public void CreateEventMethod()
